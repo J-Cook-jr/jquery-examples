@@ -16,6 +16,7 @@
     4. the ability to edit an existing task
 
     */
+
     $(function () {
       $('#add-button').on('click', (e) => {
         $('#add-button').find($('input').val());
@@ -34,16 +35,12 @@
       let input = $("li input:checkbox")
         .wrap("<span></span>")
         .parent()
-        .css({
-          background: "gray",
-          border: "2px red solid"
-        });
-    
+
       $("#todo-list").on('click', "li input:checkbox", function () {
         if ($(this).is(":checked")) {
-          $(this).parent('li').css('textDecoration', 'line-through');
+          $(this).parent('li')('textDecoration', 'line-through');
         } else {
-          $(this).parent('li').css('textDecoration', 'none');
+          $(this).parent('li')('textDecoration', 'none');
         }
       });
     });
