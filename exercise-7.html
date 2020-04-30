@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
     /*
     Make a Todo List
 
@@ -15,25 +16,60 @@
     4. the ability to edit an existing task
 
     */
-    </script>
-    <style>
+    $(function () {
+      $('#add-button').on('click', (e) => {
+        $('#add-button').find($('input').val());
+        let val = $('input').val();
+        $('ul').append('<li>' + val + '<br>' + '<input type="submit" class="edit" value="Edit">' + '<input type="submit" class="delete" value="X">' + '<input type="checkbox">' + '</li>');
+      });
+
+      $('#todo-list').on('click', '.edit', function () {
+        $(this).parent().attr('contenteditable', 'true').focus();
+      });
+
+      $('#todo-list').on('click', '.delete', function () {
+        $(this).parent().remove();
+      });
+
+      let input = $("li input:checkbox")
+        .wrap("<span></span>")
+        .parent()
+        .css({
+          background: "gray",
+          border: "2px red solid"
+        });
+    
+      $("#todo-list").on('click', "li input:checkbox", function () {
+        if ($(this).is(":checked")) {
+          $(this).parent('li').css('textDecoration', 'line-through');
+        } else {
+          $(this).parent('li').css('textDecoration', 'none');
+        }
+      });
+    });
+  </script>
+  <style>
     #wrapper {
       max-width: 480px;
       margin: auto;
     }
 
-    #description, #search, #todo-list {
+    #description,
+    #search,
+    #todo-list {
       font-size: 1.5em;
     }
-    </style>
-  </head>
-  <body>
-    <div id="wrapper">
-      <input id="description" type="text" name="description">
-      <button id="add-button">Add Task</button>
-      <ul id="todo-list">
-        <li>Feed the cat</li>
-      </ul>
-    </div>
-  </body>
+  </style>
+</head>
+
+<body>
+  <div id="wrapper">
+    <input id="description" type="text" name="description">
+    <button id="add-button">Add Task</button>
+    <ul id="todo-list">
+      <li>Feed the cat</li>
+    </ul>
+  </div>
+</body>
+
 </html>
